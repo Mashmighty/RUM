@@ -29,25 +29,6 @@
 
   <h2 id="result"></h2>
 
-  <!-- Faro SDK Initialization (loaded as early as possible using a module script) -->
-  <script type="module">
-    import { getWebInstrumentations, initializeFaro } from 'https://cdn.skypack.dev/@grafana/faro-web-sdk';
-    import { TracingInstrumentation } from 'https://cdn.skypack.dev/@grafana/faro-web-tracing';
-
-    initializeFaro({
-      url: 'https://faro-collector-prod-me-central-1.grafana.net/collect/e89982377942596a78726ebf1dce9435',
-      app: {
-        name: 'parking charges',
-        version: '1.0.0',
-        environment: 'production'
-      },
-      instrumentations: [
-        ...getWebInstrumentations(),
-        new TracingInstrumentation(),
-      ],
-    });
-  </script>
-
   <script>
     async function calculate() {
       const town = document.getElementById('town').value;
@@ -75,5 +56,4 @@
   </script>
 </body>
 </html>
-
 
