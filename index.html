@@ -30,19 +30,30 @@
   <h2 id="result"></h2>
 
   <script>
-    const charges = {
-      nairobi: { audi: 200, volkswagen: 300, mercedes: 400 },
-      mombasa: { audi: 150, volkswagen: 250, mercedes: 350 },
-      kisumu: { audi: 100, volkswagen: 200, mercedes: 300 }
-    };
-
-    function calculate() {
+    async function calculate() {
       const town = document.getElementById('town').value;
       const car = document.getElementById('car').value;
-      const amount = charges[town][car];
-      document.getElementById('result').textContent = 
-        `Parking charges in ${town.charAt(0).toUpperCase() + town.slice(1)} for a ${car.toUpperCase()} is KES ${amount}.`;
+
+      try {
+        const response = await fetch(`/api/charges?town=${town}&car=${car}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          document.getElementById('result').textContent =
+            `Parking charges in ${capitalize(town)} for a ${capitalize(car)} is KES ${data.amount}.`;
+        } else {
+          document.getElementById('result').textContent = data.error || 'Error calculating charges.';
+        }
+      } catch (error) {
+        document.getElementById('result').textContent = 'Failed to fetch charges.';
+        console.error('Error:', error);
+      }
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     }
   </script>
 </body>
 </html>
+
