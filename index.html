@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parking Charges Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    label, select, button { margin-top: 1rem; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Parking Charges Calculator</h1>
+
+  <label for="town">Select Town:</label>
+  <select id="town">
+    <option value="nairobi">Nairobi</option>
+    <option value="mombasa">Mombasa</option>
+    <option value="kisumu">Kisumu</option>
+  </select>
+
+  <label for="car">Select Car Model:</label>
+  <select id="car">
+    <option value="audi">Sedan</option>
+    <option value="volkswagen">SUV</option>
+    <option value="mercedes">Truck</option>
+  </select>
+
+  <button onclick="calculate()">Get Charges</button>
+
+  <h2 id="result"></h2>
+
+  <script>
+    const charges = {
+      nairobi: { audi: 200, volkswagen: 300, mercedes: 400 },
+      mombasa: { audi: 150, volkswagen: 250, mercedes: 350 },
+      kisumu: { audi: 100, volkswagen: 200, mercedes: 300 }
+    };
+
+    function calculate() {
+      const town = document.getElementById('town').value;
+      const car = document.getElementById('car').value;
+      const amount = charges[town][car];
+      document.getElementById('result').textContent = 
+        `Parking charges in ${town.charAt(0).toUpperCase() + town.slice(1)} for a ${car.toUpperCase()} is KES ${amount}.`;
+    }
+  </script>
+</body>
+</html>
